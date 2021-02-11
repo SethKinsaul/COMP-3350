@@ -1,0 +1,144 @@
+TITLE Sub Arrays; Created by Seth Kinsaul   (SubtractArrays.asm)
+INCLUDE Irvine32.inc
+;array three is the new array
+
+.data
+Array1  WORD 7h, 2h, 3h, 4h, 5h, 1h, 6h, 9h, 8h, 0h ; FIRST ARRAY
+Array2 	WORD 4h, 3h, 1h, 7h, 2h, 9h, 0h, 6h, 5h, 8h		; SECOND ARRAY
+Array3 	WORD 10 DUP (?)									; THIRD ARRAY
+a1message BYTE "Array1 Values: ",0
+a2message BYTE "Array2 Values: ",0
+a3message BYTE "Array3 Values: ",0
+
+.code
+main PROC
+	mov esi, OFFSET Array1
+	mov ecx, 5
+	mov edx, OFFSET Array2
+	mov ebx, OFFSET Array3
+L1:
+	call ArraySub
+	add esi, TYPE DWORD
+	sub edx, TYPE DWORD
+	mov [ebx], ax
+	add ebx, TYPE DWORD
+	loop L1;
+
+;prints values
+	call crlf
+	mov edx, OFFSET a1message
+	call WriteString
+	call crlf
+	movzx eax, Array1
+	call WriteHex
+	call crlf
+	movzx eax, [Array1 + 2]
+	call WriteHex
+	call crlf
+	movzx eax, [Array1 + 4]
+	call WriteHex
+	call crlf
+	movzx eax, [Array1 + 6]
+	call WriteHex
+	call crlf
+	movzx eax, [Array1 + 8]
+	call WriteHex
+	call crlf
+	movzx eax, [Array1 + 10]
+	call WriteHex
+	call crlf
+	movzx eax, [Array1 + 12]
+	call WriteHex
+	call crlf
+	movzx eax, [Array1 + 14]
+	call WriteHex
+	call crlf
+	movzx eax, [Array1 + 16]
+	call WriteHex
+	call crlf
+	movzx eax, [Array1 + 18]
+	call WriteHex
+	call crlf
+
+	call crlf
+	mov edx, OFFSET a2message
+	call WriteString
+	call crlf
+	movzx eax, Array2
+	call WriteHex
+	call crlf
+	movzx eax, [Array2 + 2]
+	call WriteHex
+	call crlf
+	movzx eax, [Array2 + 4]
+	call WriteHex
+	call crlf
+	movzx eax, [Array2 + 6]
+	call WriteHex
+	call crlf
+	movzx eax, [Array2 + 8]
+	call WriteHex
+	call crlf
+	movzx eax, [Array2 + 10]
+	call WriteHex
+	call crlf
+	movzx eax, [Array2 + 12]
+	call WriteHex
+	call crlf
+	movzx eax, [Array2 + 14]
+	call WriteHex
+	call crlf
+	movzx eax, [Array2 + 16]
+	call WriteHex
+	call crlf
+	movzx eax, [Array2 + 18]
+	call WriteHex
+	call crlf
+
+	call crlf
+	mov edx, OFFSET a3message
+	call WriteString
+	call crlf
+	movzx eax, Array3
+	call WriteHex
+	call crlf
+	movzx eax, [Array3 + 2]
+	call WriteHex
+	call crlf
+	movzx eax, [Array3 + 4]
+	call WriteHex
+	call crlf
+	movzx eax, [Array3 + 6]
+	call WriteHex
+	call crlf
+	movzx eax, [Array3 + 8]
+	call WriteHex
+	call crlf
+	movzx eax, [Array3 + 10]
+	call WriteHex
+	call crlf
+	movzx eax, [Array3 + 12]
+	call WriteHex
+	call crlf
+	movzx eax, [Array3 + 14]
+	call WriteHex
+	call crlf
+	movzx eax, [Array3 + 16]
+	call WriteHex
+	call crlf
+	movzx eax, [Array3 + 18]
+	call WriteHex
+	call crlf
+
+
+	exit
+main ENDP
+ArraySub PROC USES esi
+	mov eax, 0
+	add eax, [esi]
+	sub eax, [edx]
+	
+	ret
+ArraySub ENDP
+
+END main

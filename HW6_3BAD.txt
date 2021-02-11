@@ -1,0 +1,74 @@
+;HW6_3.asm - Created by Seth Kinsau
+;Description - Write a procedure findMinor, that finds the element closest to zero from the values that are stored in the stack in the previous program
+
+INCLUDE Irvine32.inc
+
+.data
+WelcomeMsg BYTE "Welcome! This program Writes a procedure findMinor, that finds the element closest to zero from the values that are stored in the stack in the previous program", 0
+prompt  	BYTE "Please input a value: ", 0
+spacing 	BYTE ", ",0; 
+String1	BYTE "The target value is ", 0
+String2	BYTE "and is located at index: ",0
+COUNT = 6
+
+.code
+main PROC
+	mov eax, 0
+	mov ebx, 0
+	mov ecx, 10
+	mov edx, OFFSET WelcomeMsg
+	call writeString
+	call crlf
+	call crlf
+	mov edx, OFFSET prompt
+
+	L1:
+		call WriteString           ; displays prompt for user input
+		call ReadInt               ; reads user input
+		mov ArraySW[ebx], ax       ; stores user input in available array indice
+		add ebx, 2                 ; points to next indice in array
+		loop L1
+
+	mov ebx, 0                     ; clears ebx for procedure call
+	mov ecx, 10                    ; resets ecx value to 10
+	call crlf                      ; formatting
+	call crlf
+	call MinMax
+
+	mov edx, OFFSET String1
+	call WriteString
+	movsx eax, Target
+	call WriteString
+	mov edx, OFFSET spacing
+	call WriteString         
+	mov edx, OFFSET String2
+	call WriteString
+	movsx eax, MinIndice     
+	call crlf   
+
+	
+main ENDP
+	
+	MinMax PROC USES ebx
+	mov ebx, 0                     ; clears ebx
+	mov ecx, 10                    ; resets ecx value to 10
+	movsx eax, ArraySW[ebx]        ; moves first number in array to eax with sign extension
+	L2:
+		cmp ax, ArraySW[ebx]       ; finds the minimum number
+		jl J2                      ; jumps to J2 if ax < ArraySW[ebx]
+		mov temp, bx               ; move bx (array index) value to temp value
+		mov ax, bx                 ; move bx to ax for divide procedure
+		mov bx, 2                  ; make divisor (bx) 2
+		div bl                     ; divide current index by 2
+		mov MinIndice, ax          ; store modified value in indice variable for later access
+		mov bx, temp               ; restore bx value from temp
+		movsx eax, ArraySW[ebx]    ; ax >= [bx], so the next smallest number is now in eax
+	J2:
+		add ebx, 2                 ; points to next indice in array
+		loop L2                    ; loops 10 times for each value
+	movsx ebx, ax                  ; sign extend min value
+	mov Min, bx                    ; stores min value in Min variable from bx
+	ret                            ; returns value in eax (just to end procedure)
+MinMax ENDP
+
+END main

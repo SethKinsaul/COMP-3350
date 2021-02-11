@@ -1,0 +1,57 @@
+; HW6_1.asm    --  Created by Seth Kinsaul
+; Description: Accepts 6 integer inputs and stores them within an array (stack)
+
+INCLUDE Irvine32.inc
+
+.data
+
+.code
+main PROC
+
+	mov eax, 0
+	mov ebx, 0
+	mov ecx, 0
+	mov edx, 0
+	
+	mov ecx, 5
+	L1:
+		mov al, 2Ah
+		call WriteChar
+		loop L1
+	mov al, 0Ah
+	call WriteChar
+
+	mov ecx, 5
+	L2:
+		mov al, 2Ah
+		call WriteChar
+		loop L2
+	mov al, 0Ah
+	call WriteChar
+
+	mov ecx, 5
+	L3:
+		mov al, 2Ah
+		call WriteChar
+		loop L3
+	mov al, 0Ah
+	call WriteChar
+
+	mov ecx, 5
+	L4:
+		mov al, 2Ah
+		call WriteChar
+		loop L4
+	mov al, 0Ah
+	call WriteChar
+	
+	mov ecx, 5
+	L5:
+		mov al, 2Ah
+		call WriteChar
+		loop L5
+	mov al, 0Ah
+	call WriteChar
+
+main ENDP
+END main
